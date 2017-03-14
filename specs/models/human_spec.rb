@@ -39,9 +39,61 @@ describe Human do
     end
   end
 
-  it 'play area' do
-    puts Human.new('Caitlin').name
+  describe '.age=' do
+    it 'sets the age for our human instance' do
+      human = Human.new('')
+      expect(human).to respond_to(:age=)
+    end
   end
+
+  describe '.age' do
+    it 'returns the age of the human instance' do
+      human = Human.new('')
+      human.age = 28
+      expect(human.age).to eq(28)
+    end
+  end
+
+  describe '.drinking_age=' do
+    it 'sets the local legal drinking age for our human instance' do
+      human = Human.new('')
+      expect(human).to respond_to(:drinking_age=)
+    end
+  end
+
+  describe '.drinking_age' do
+    it 'returns the local legal drinking age of the human instance' do
+      human = Human.new('')
+      human.drinking_age = 18
+      expect(human.drinking_age).to eq(18)
+    end
+  end
+
+  describe '.can_drink?' do
+    it 'returns true if instance of human is older than drinking_age' do
+      human = Human.new('')
+      human.age = 20
+      human.drinking_age = 18
+      expect(human.can_drink?).to be_truthy
+    end
+  end
+
+  describe '.can_drink?' do
+    it 'returns true if instance of human is the same age as drinking_age' do
+      human = Human.new('')
+      human.age = 21
+      human.drinking_age = 21
+      expect(human.can_drink?).to be_truthy
+    end
+  end
+
+  describe '.can_drink?' do
+    it 'returns true if instance of human is younger than drinking_age' do
+      human = Human.new('')
+      human.age = 17
+      human.drinking_age = 18
+      expect(human.can_drink?).to be_falsey
+    end
+  end
+
 end
-
-

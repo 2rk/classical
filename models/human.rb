@@ -25,5 +25,24 @@ class Human
   def job_title
     @job_title
   end
-end
 
+  def age=(value)
+    @age = value
+  end
+
+  def age
+    @age
+  end
+
+  def drinking_age=(value)
+    @drinking_age = value
+  end
+
+  def drinking_age
+    @drinking_age
+  end
+
+  def can_drink?
+    return @age >= @drinking_age
+  end 
+end
