@@ -11,7 +11,11 @@ class Human
     @name.split().reverse.join(', ')
   end
 
+  #@drinking_age = 18
+
   def can_drink?
-    return @age >= @drinking_age
+    @drinking_age ||= 18
+    @age ||= 0
+    @age >= @drinking_age
   end
 end

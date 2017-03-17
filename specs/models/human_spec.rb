@@ -59,13 +59,18 @@ describe Human do
       human = Human.new('')
       expect(human).to respond_to(:drinking_age=)
     end
+    it 'allowed user to override the default drinking_age' do
+      human = Human.new('')
+      human.drinking_age = 21
+      expect(human.drinking_age).to eq(21)
+    end
   end
 
   describe '.drinking_age' do
     it 'returns the local legal drinking age of the human instance' do
       human = Human.new('')
-      human.drinking_age = 18
-      expect(human.drinking_age).to eq(18)
+      human.drinking_age = 15
+      expect(human.drinking_age).to eq(15)
     end
   end
 
@@ -76,24 +81,42 @@ describe Human do
       human.drinking_age = 18
       expect(human.can_drink?).to be_truthy
     end
-  end
 
-  describe '.can_drink?' do
     it 'returns true if instance of human is the same age as drinking_age' do
       human = Human.new('')
       human.age = 21
       human.drinking_age = 21
       expect(human.can_drink?).to be_truthy
     end
-  end
 
-  describe '.can_drink?' do
-    it 'returns true if instance of human is younger than drinking_age' do
+    it 'returns false if instance of human is younger than drinking_age' do
       human = Human.new('')
       human.age = 17
       human.drinking_age = 18
       expect(human.can_drink?).to be_falsey
     end
-  end
 
+    it 'returns true for can_drink? if user is 18 and no drinking age set' do
+      human = Human.new('')
+      human.age = 18
+      expect(human.can_drink?).to be_truthy
+    end
+
+    it 'returns false for can_drink? if user is under 18 and no drinking age set' do
+      human = Human.new('')
+      human.age = 17
+      expect(human.can_drink?).to be_falsey
+    end
+
+    it 'returns false for can_drink? for any drinking_age if no age set' do
+      human = Human.new('')
+      human.drinking_age = 1
+      expect(human.can_drink?).to be_falsey
+    end
+
+    it 'returns false for can_drink? if no age or drinking_age set' do
+      human = Human.new('')
+      expect(human.can_drink?).to be_falsey
+    end
+  end
 end
