@@ -39,9 +39,45 @@ describe Human do
     end
   end
 
+  describe '.age=' do
+    it 'sets the age for our human instance' do
+      human = Human.new('')
+      expect(human).to respond_to(:age=)
+    end
+  end
+
+  describe '.age' do
+    it 'it returns the age' do
+    human = Human.new('')
+    human.age = 18
+    expect(human.age).to eq(18)
+    end
+  end
+
+  describe '.can_drink?' do
+    it 'returns true if human is of age' do
+      human = Human.new('Boris')
+      human.age = 35
+      expect(human.can_drink?).to be true
+    end
+
+    it 'returns false if human is underage' do
+      human = Human.new('Boris Jr')
+      human.age = 14
+      expect(human.can_drink?).to be false
+
+    end
+
+    it 'checks the drinking age for a given country' do
+      human = Human.new('Garfield')
+      human.age = 18
+      expect(human.can_drink? 'Australia').to be true
+      expect(human.can_drink? 'United States').to be false
+    end
+  end
+
+
   it 'play area' do
     puts Human.new('Caitlin').name
   end
 end
-
-
