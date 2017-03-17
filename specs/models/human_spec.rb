@@ -39,9 +39,27 @@ describe Human do
     end
   end
 
+  describe '.age' do
+    it 'it returns the age' do
+      human = Human.new('')
+      human.age = 20
+      expect(human.age).to eq(20)
+    end
+  end
+  describe '.can_drink' do
+    it 'it is legal to drink'do
+      human = Human.new('')
+      human.age = 18
+      expect(human.can_drink?).to eq(true)
+    end
+    it 'it is illegal to drink'do
+      human = Human.new('')
+      human.age = 10
+      expect(human.can_drink?).to eq(false)
+    end
+  end
+
   it 'play area' do
-    puts Human.new('Caitlin').name
+    puts Human.new('Sarah').name
   end
 end
-
-

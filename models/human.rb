@@ -25,5 +25,10 @@ class Human
   def job_title
     @job_title
   end
-end
+  attr_accessor :age
 
+  def can_drink?
+      @age >= 18
+  end
+
+end
