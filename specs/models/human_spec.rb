@@ -65,7 +65,6 @@ describe Human do
       human = Human.new('Boris Jr')
       human.age = 14
       expect(human.can_drink?).to be false
-
     end
 
     it 'checks the drinking age for a given country' do
@@ -74,8 +73,18 @@ describe Human do
       expect(human.can_drink? 'Australia').to be true
       expect(human.can_drink? 'United States').to be false
     end
-  end
 
+    it 'returns false if country is unknown' do
+      human = Human.new('Odie')
+      human.age = 18
+      expect(human.can_drink? 'Not a Real Country').to be false
+    end
+
+    it 'returns false if age is not set' do
+      human = Human.new('Tye M. Less')
+      expect(human.can_drink?).to be false
+    end
+  end
 
   it 'play area' do
     puts Human.new('Caitlin').name
