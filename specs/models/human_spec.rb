@@ -49,16 +49,16 @@ end
 describe '.age' do
   it 'it gets the age for the human instance' do
     human = Human.new('')
-    human.age = '34'
-    expect(human.age).to eq('34')
+    human.age = 34
+    expect(human.age).to eq(34)
   end
 end
 
 describe '.to_drink' do
   it 'it returns for true if human instance is old enough' do
     human = Human.new('Mate')
-    human.age = '99'
-    expect(human.age).to eq('99')
+    human.age = 99
+    expect(human.age).to eq(99)
     expect(human.to_drink).to eq true
   end
 end
@@ -66,12 +66,11 @@ end
 describe '.to_drink' do
   it 'it return false if human instance too young' do
     human = Human.new('Mate2')
-    human.age = '17'
-    expect(human.age).to eq('17')
+    human.age = 17
+    expect(human.age).to eq(17)
     expect(human.to_drink).to eq false
   end
 end
-
 
 
   it 'play area' do

@@ -35,16 +35,14 @@ attr_accessor :age
 #    @age = value
 #    end
 
-def to_drink
-  @to_drink
-end
+
 
 def to_drink
-  if @age >= '18'
+  if @age >= 18
     to_drink = true
-  else
+    else
     to_drink = false
-end
+  end
 end
 
 end
