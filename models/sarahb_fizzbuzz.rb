@@ -8,11 +8,11 @@ class Fizzbuzz
    def string
      x = @fizzbuzz
      if x % 3 == 0 && x % 5 == 0
-       return "fizz"
-     elsif x == 5
-       return "buzz"
-     elsif x == 15
        return "fizzbuzz"
+     elsif x % 3 == 0
+       return "fizz"
+     elsif x % 5 == 0
+       return "buzz"
      else
        return x
      end

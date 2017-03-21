@@ -19,8 +19,8 @@ describe 'fizzbuzz' do
       fb = Fizzbuzz.new(15)
       expect(fb.string).to eq('fizzbuzz')
   end
-  # it 'returns fizz for 21' do
-  #     fb = Fizzbuzz.new(21)
-  #     expect(fb.string).to eq('fizz')
-  # end
+  it 'returns fizz for 21' do
+      fb = Fizzbuzz.new(21)
+      expect(fb.string).to eq('fizz')
+  end
 end
