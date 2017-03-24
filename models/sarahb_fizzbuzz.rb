@@ -20,12 +20,8 @@ class Fizzbuzz
 
 end
 
-#  if x % 3 == 0 && x % 5 == 0
-#    puts "Fizzbuzz!"
-#  elsif x % 3 == 0
-#    puts "Fizz"
-#  elsif x % 5 == 0
-#    puts "Buzz"
-#  else
-#    puts x
-#  end
+
+(1..100).each do |n|
+  fb = Fizzbuzz.new(n)
+  puts (fb.string)
+end
