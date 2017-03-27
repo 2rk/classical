@@ -7,17 +7,17 @@ class Fizzbuzz
 
    def string
      x = @fizzbuzz
-     if x % 3 == 0 && x % 5 == 0
-       return "fizzbuzz"
-     elsif x % 3 == 0
-       return "fizz"
-     elsif x % 5 == 0
-       return "buzz"
-     else
-       return x
-     end
-   end
-
+    case
+      when x % 3 == 0 && x % 5 == 0
+          "fizzbuzz"
+      when x % 3 == 0
+          "fizz"
+      when x % 5 == 0
+          "buzz"
+      else
+         x
+    end 
+  end
 end
 
 
