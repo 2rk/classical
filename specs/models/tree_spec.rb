@@ -24,6 +24,14 @@ describe Tree do
       peter = Tree.new('Peter')
       fred.add_child(peter)
     end
+    it 'does not add child if parent already set' do
+      fred = Tree.new('Fred')
+      peter = Tree.new('Peter')
+      tim = Tree.new('Tim')
+      fred.add_child(peter)
+      tim.add_child(peter)
+      expect(tim.children).to be_empty
+    end
   end
 
   describe '#children' do
@@ -71,7 +79,7 @@ describe Tree do
     end
   end
 
-  describe '.root?' do
+  describe '#root?' do
     it 'returns true when paren is not set' do
       fred = Tree.new('Fred')
       peter = Tree.new('Peter')
@@ -87,7 +95,7 @@ describe Tree do
     end
   end
 
-  describe '.leaf?' do
+  describe '#leaf?' do
     it 'returns true when has no children' do
       fred = Tree.new('Fred')
       peter = Tree.new('Peter')
@@ -100,5 +108,61 @@ describe Tree do
       fred.add_child(peter)
       expect(fred.leaf?).to be_falsey
     end
+  end
+
+  describe '#ancestors' do
+    fred = Tree.new('Fred')
+    peter = Tree.new('Peter')
+    rabbit = Tree.new('Rabbit')
+    fred.add_child(peter)
+    peter.add_child(rabbit)
+    it 'returns empty array for root' do
+      expect(fred.ancestors).to be_empty
+    end
+    it 'returns array of all direct ancestors for self' do
+      expect(rabbit.ancestors).to eq([peter, fred])
+    end
+  end
+
+  describe '#descendants' do
+    fred = Tree.new('Fred')
+    peter = Tree.new('Peter')
+    paul = Tree.new('Paul')
+    mary = Tree.new('Mary')
+    pan = Tree.new('Pan')
+    rabbit = Tree.new('Rabbit')
+    fred.add_child(peter)
+    fred.add_child(paul)
+    fred.add_child(mary)
+    peter.add_child(pan)
+    peter.add_child(rabbit)
+    it 'returns empty array for leaf' do
+      expect(rabbit.descendants).to be_empty
+    end
+    it 'returns array of all children if all children are leafs' do
+      expect(fred.descendants).to eq([peter, pan, rabbit, paul, mary])
+    end
+  end
+
+  describe '#detach_node' do
+    fred = Tree.new('Fred')
+    peter = Tree.new('Peter')
+    paul = Tree.new('Paul')
+    mary = Tree.new('Mary')
+    pan = Tree.new('Pan')
+    rabbit = Tree.new('Rabbit')
+    fred.add_child(peter)
+    fred.add_child(paul)
+    fred.add_child(mary)
+    peter.add_child(pan)
+    peter.add_child(rabbit)
+    peter.detach_node
+    it 'removes parent of self' do
+      expect(peter.parent).to be_nil
+    end
+    it 'removes self as child of original parent' do
+      expect(fred.children).to eq([paul, mary])
+    end
+
   end
 end
