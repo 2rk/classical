@@ -1,44 +1,32 @@
 class Fizzbuzzer
 
-  attr_accessor :range
-  attr_writer :fizzer, :buzzer
+  attr_reader :number, :fizzer, :buzzer
 
-  def initialize(count)
-    @range = (1..count)
+  def initialize(number, fizzer = 3 , buzzer = 5)
+    @number = number
+    @fizzer = fizzer
+    @buzzer = buzzer
   end
 
-  def run
-    @range.each do |number|
-      fizz = fizzes?(number)
-      buzz = buzzes?(number)
-      case
-        when fizz && buzz
-          puts 'Fizzbuzz!'
-        when fizz
-          puts 'Fizz'
-        when buzz
-          puts 'Buzz'
-        else
-          puts number
-      end
+  def fizzes?
+    @number % @fizzer == 0
+  end
+
+  def buzzes?
+    @number % @buzzer == 0
+  end
+
+  def says
+    case
+      when fizzes? && buzzes?
+        puts 'Fizzbuzz!'
+      when fizzes?
+        puts 'Fizz'
+      when buzzes?
+        puts 'Buzz'
+      else
+        puts number
     end
   end
-
-  def fizzer
-    @fizzer ||= 3
-  end
-
-  def buzzer
-    @buzzer ||= 5
-  end
-
-  def fizzes?(number)
-    number % fizzer == 0
-  end
-
-  def buzzes?(number)
-    number % buzzer == 0
-  end
-
 end
 
