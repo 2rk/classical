@@ -40,10 +40,10 @@ class Tree
 
   def descendants
     descendants_array = []
-    if !leaf?
+    unless leaf?
       children.each do |child|
         descendants_array << child
-        if !child.leaf?
+        unless child.leaf?
           descendants_array << child.descendants
         end
       end
@@ -53,6 +53,10 @@ class Tree
 
   def detach_node
     parent.children = parent.children - [self]
+    # Not sure why this next line needed 'self.parent' rather than just 'parent'
+    # It it because I've already referred to the other trees and/or self in the
+    # previous line? Is it related to removing self from the array?
+    # Either way, it works now but doesn't work if i remove 'self.'
     self.parent = nil
   end
 end
