@@ -166,24 +166,4 @@ describe Tree do
       expect(fred.children).to eq([paul, mary])
     end
   end
-  describe '#remove_family' do
-    it 'removes self as parent of all children' do
-      fred = Tree.new('Fred')
-      peter = Tree.new('Peter')
-      pan = Tree.new('Pan')
-      rabbit = Tree.new('Rabbit')
-      fred.add_child(peter)
-      peter.add_child(pan)
-      peter.add_child(rabbit)
-      peter.remove_family
-      expect(rabbit.parent).to be_nil
-    end
-    it 'calls detach node' do
-      fred = Tree.new('Fred')
-      peter = Tree.new('Peter')
-      fred.add_child(peter)
-      expect(peter).to receive(:detach_node).and_return("Node detached")
-      peter.remove_family
-    end
-  end
 end

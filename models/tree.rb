@@ -59,9 +59,4 @@ class Tree
     # Either way, it works now but doesn't work if i remove 'self.'
     self.parent = nil
   end
-
-  def remove_family
-    children.each { |child| child.parent = nil}
-    detach_node
-  end
 end
