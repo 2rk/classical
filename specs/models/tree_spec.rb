@@ -10,7 +10,7 @@ Fred -
 =end
 
 describe Tree do
-
+#
   describe '.new' do
     it 'creates a new object and set name' do
       tree = Tree.new('Fred')
@@ -57,7 +57,7 @@ describe Tree do
       expect(paul.siblings).to eq([peter, mary])
     end
 
-    it 'returns empty array when has no siblings' do
+     it 'returns empty array when has no siblings' do
       fred = Tree.new('Fred')
       peter = Tree.new('Peter')
       fred.add_child(peter)
@@ -118,19 +118,20 @@ describe Tree do
     it 'returns array of all direct ancestors for self' do
       fred = Tree.new('Fred')
       peter = Tree.new('Peter')
+      paul = Tree.new('Paul')
       rabbit = Tree.new('Rabbit')
       fred.add_child(peter)
+      fred.add_child(paul)
       peter.add_child(rabbit)
       expect(rabbit.ancestors).to eq([peter, fred])
     end
   end
-
   describe '#descendants' do
     it 'returns empty array for leaf' do
       rabbit = Tree.new('Rabbit')
       expect(rabbit.descendants).to be_empty
     end
-    it 'returns array of all children if all children are leafs' do
+    it 'returns array of all children and their descendants' do
       fred = Tree.new('Fred')
       peter = Tree.new('Peter')
       paul = Tree.new('Paul')
@@ -145,20 +146,11 @@ describe Tree do
       expect(fred.descendants).to eq([peter, pan, rabbit, paul, mary])
     end
   end
-
   describe '#detach_node' do
     it 'removes parent of self' do
       fred = Tree.new('Fred')
       peter = Tree.new('Peter')
-      paul = Tree.new('Paul')
-      mary = Tree.new('Mary')
-      pan = Tree.new('Pan')
-      rabbit = Tree.new('Rabbit')
       fred.add_child(peter)
-      fred.add_child(paul)
-      fred.add_child(mary)
-      peter.add_child(pan)
-      peter.add_child(rabbit)
       peter.detach_node
       expect(peter.parent).to be_nil
     end
@@ -167,15 +159,31 @@ describe Tree do
       peter = Tree.new('Peter')
       paul = Tree.new('Paul')
       mary = Tree.new('Mary')
-      pan = Tree.new('Pan')
-      rabbit = Tree.new('Rabbit')
       fred.add_child(peter)
       fred.add_child(paul)
       fred.add_child(mary)
-      peter.add_child(pan)
-      peter.add_child(rabbit)
       peter.detach_node
       expect(fred.children).to eq([paul, mary])
+    end
+  end
+  describe '#remove_family' do
+    it 'removes self as parent of all children' do
+      fred = Tree.new('Fred')
+      peter = Tree.new('Peter')
+      pan = Tree.new('Pan')
+      rabbit = Tree.new('Rabbit')
+      fred.add_child(peter)
+      peter.add_child(pan)
+      peter.add_child(rabbit)
+      peter.remove_family
+      expect(rabbit.parent).to be_nil
+    end
+    it 'calls detach node' do
+      fred = Tree.new('Fred')
+      peter = Tree.new('Peter')
+      fred.add_child(peter)
+      expect(peter).to receive(:detach_node).and_return("Node detached")
+      peter.remove_family
     end
   end
 end

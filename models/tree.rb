@@ -9,8 +9,8 @@ class Tree
   end
 
   def add_child(child)
-    if child.parent.nil?
-      @children << child
+    if child.root?
+      children << child
       child.parent = self
     end
   end
@@ -58,5 +58,10 @@ class Tree
     # previous line? Is it related to removing self from the array?
     # Either way, it works now but doesn't work if i remove 'self.'
     self.parent = nil
+  end
+
+  def remove_family
+    children.each { |child| child.parent = nil}
+    detach_node
   end
 end
