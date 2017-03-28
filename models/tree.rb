@@ -15,6 +15,10 @@ class Tree
     end
   end
 
+  def add_children(*values)
+    values.each { | value| add_child(value)}
+  end
+
   def root?
     parent.nil?
   end

@@ -39,8 +39,7 @@ describe Tree do
       fred = Tree.new('Fred')
       peter = Tree.new('Peter')
       paul = Tree.new('Paul')
-      fred.add_child(peter)
-      fred.add_child(paul)
+      fred.add_children(peter,paul)
       expect(fred.children).to eq([peter, paul])
     end
   end
@@ -51,9 +50,7 @@ describe Tree do
       peter = Tree.new('Peter')
       paul = Tree.new('Paul')
       mary = Tree.new('Mary')
-      fred.add_child(peter)
-      fred.add_child(paul)
-      fred.add_child(mary)
+      fred.add_children(peter,paul,mary)
       expect(paul.siblings).to eq([peter, mary])
     end
 
@@ -120,8 +117,7 @@ describe Tree do
       peter = Tree.new('Peter')
       paul = Tree.new('Paul')
       rabbit = Tree.new('Rabbit')
-      fred.add_child(peter)
-      fred.add_child(paul)
+      fred.add_children(peter,paul)
       peter.add_child(rabbit)
       expect(rabbit.ancestors).to eq([peter, fred])
     end
@@ -138,11 +134,8 @@ describe Tree do
       mary = Tree.new('Mary')
       pan = Tree.new('Pan')
       rabbit = Tree.new('Rabbit')
-      fred.add_child(peter)
-      fred.add_child(paul)
-      fred.add_child(mary)
-      peter.add_child(pan)
-      peter.add_child(rabbit)
+      fred.add_children(peter,paul,mary)
+      peter.add_children(pan,rabbit)
       expect(fred.descendants).to eq([peter, pan, rabbit, paul, mary])
     end
   end
@@ -159,11 +152,19 @@ describe Tree do
       peter = Tree.new('Peter')
       paul = Tree.new('Paul')
       mary = Tree.new('Mary')
-      fred.add_child(peter)
-      fred.add_child(paul)
-      fred.add_child(mary)
+      fred.add_children(peter,paul,mary)
       peter.detach_node
       expect(fred.children).to eq([paul, mary])
+    end
+  end
+  describe '#add_children' do
+    it 'adds multiple children at once' do
+      fred = Tree.new('Fred')
+      peter = Tree.new('Peter')
+      paul = Tree.new('Paul')
+      mary = Tree.new('Mary')
+      fred.add_children(peter, paul, mary)
+      expect(fred.children).to eq([peter,paul,mary])
     end
   end
 end
