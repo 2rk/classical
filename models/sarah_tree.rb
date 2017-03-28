@@ -27,18 +27,25 @@ class Tree
 
   def ancestor
     if root?
-      return []
+      []
     else
       parent.ancestor.unshift parent
     end
   end
-  # def descendant
-  #   if leaf?
-  #     return []
-  #   else
-  #   end
-  # end
-  # def inspect
-  #   "<Tree #{object_id} name=#{name}>"
-  # end
+
+  def descendant
+    if leaf?
+      []
+    else
+      all_descendants = children
+      children.each do |child|
+        all_descendants = all_descendants + child.descendant
+      end
+      all_descendants
+    end
+  end
+
+  def inspect
+    "<Tree #{object_id} name=#{name}>"
+  end
 end

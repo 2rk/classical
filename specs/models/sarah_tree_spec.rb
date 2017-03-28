@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative "../../models/tree"
+require_relative "../../models/sarah_tree"
 =begin
 Fred -
         Paul
@@ -122,12 +122,11 @@ describe Tree do
       pan = Tree.new('Pan')
       rabbit = Tree.new('Rabbit')
       fred.add_child(peter)
-      fred.add_child(peter)
       fred.add_child(paul)
       fred.add_child(mary)
       peter.add_child(pan)
       peter.add_child(rabbit)
-      expect(fred.descendant).to eq([peter,paul,marypan,rabbit])
+      expect(fred.descendant).to eq([peter,paul,mary,pan,rabbit])
     end
   end
 end
