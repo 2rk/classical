@@ -101,4 +101,65 @@ describe Tree do
       expect(fred.leaf?).to be_falsey
     end
   end
+
+  describe '.descendants' do
+    it 'makes an array of all children of children of children, etc' do
+      parent = Tree.new('Parent')
+      child1 = Tree.new('Child1')
+      child2 = Tree.new('Child2')
+      grandchild1 = Tree.new('Grandchild1')
+      grandchild2 = Tree.new('Grandchild2')
+
+      parent.add_child(child1)
+      parent.add_child(child2)
+
+      child1.add_child(grandchild1)
+      child1.add_child(grandchild2)
+
+
+      descendants = parent.descendants
+      expect(descendants).to include(child1, child2, grandchild1, grandchild2)
+      expect(descendants).to_not include(parent)
+    end
+  end
+
+  describe '.ancestors' do
+    it 'makes an array of all ancestors' do
+      parent = Tree.new('Parent')
+      child1 = Tree.new('Child1')
+      child2 = Tree.new('Child2')
+      grandchild1 = Tree.new('Grandchild1')
+      grandchild2 = Tree.new('Grandchild2')
+
+      parent.add_child(child1)
+      parent.add_child(child2)
+
+      child1.add_child(grandchild1)
+      child1.add_child(grandchild2)
+
+      ancestors = grandchild1.ancestors
+      expect(ancestors).to include(child1, parent)
+      expect(ancestors).to_not include(child2, grandchild2)
+    end
+  end
+
+  describe '.detach_node' do
+    it 'removes itself from its parent. The child becomes emancipated.' do
+      parent = Tree.new('Parent')
+      child1 = Tree.new('Child1')
+      child2 = Tree.new('Child2')
+      grandchild1 = Tree.new('Grandchild1')
+      grandchild2 = Tree.new('Grandchild2')
+
+      parent.add_child(child1)
+      parent.add_child(child2)
+
+      child1.add_child(grandchild1)
+      child1.add_child(grandchild2)
+
+      child1.detach_node!
+      expect(parent.children).to_not include(child1)
+      expect(child1.parent).to_not eq(parent)
+    end
+  end
 end
