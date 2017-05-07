@@ -45,7 +45,7 @@ else
         letters = command.split('')
         r2.place(letters[6], letters[8], letters[10])
       when command.start_with?('MOVE')
-        r2.move
+        puts r2.move
       when command.start_with?('REPORT')
         puts r2.report
       when command.start_with?('LEFT')

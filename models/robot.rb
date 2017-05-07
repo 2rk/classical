@@ -24,13 +24,13 @@ class Robot
   def move
     case @direction
       when 'N'
-        position[1] < 4 ? @position[1] += 1 : puts 'Robot is at the edge of the grid!'
+        @position[1] += 1 if position[1] < 4
       when 'E'
-        position[0] < 4 ? @position[0] += 1 : puts 'Robot is at the edge of the grid!'
+        @position[0] += 1 if position[0] < 4
       when 'S'
-        position[1] > 0 ? @position[1] -= 1 : puts 'Robot is at the edge of the grid!'
+        @position[1] -= 1 if position[1] > 0
       when 'W'
-        position[0] > 0 ? @position[0] -= 1 : puts 'Robot is at the edge of the grid!'
+        @position[0] -= 1 if position[0] > 0
     end
   end
 
