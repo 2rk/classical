@@ -2,8 +2,7 @@ class Robot
   attr_accessor :position, :direction
 
   def initialize
-    @position = [0,0]
-    @direction = 'N'
+    @placed = false
     @compass = ['N', 'E', 'S', 'W', 'N', 'E','S']
   end
 
@@ -11,37 +10,56 @@ class Robot
     if (0..4).include?(x) && (0..4).include?(y) && ['N','E','S','W'].include?(dir)
       @position = [x.to_i,y.to_i]
       @direction = dir
+      @placed = true
+    else
+      puts 'Invalid placement.'
     end
-  else
-    puts 'Invalid placement.'
   end
 
   def report
-    report = @position << @direction
-    report.join(',')
+    if @placed
+      report = @position + [@direction]
+      puts report.join(',')
+    else
+      puts 'Your robot has not been placed on the grid.'
+    end
   end
 
   def move
-    case @direction
-      when 'N'
-        @position[1] += 1 if position[1] < 4
-      when 'E'
-        @position[0] += 1 if position[0] < 4
-      when 'S'
-        @position[1] -= 1 if position[1] > 0
-      when 'W'
-        @position[0] -= 1 if position[0] > 0
+    if @placed
+      start_position = @position.clone
+      case @direction
+        when 'N'
+          @position[1] += 1 if position[1] < 4
+        when 'E'
+          @position[0] += 1 if position[0] < 4
+        when 'S'
+          @position[1] -= 1 if position[1] > 0
+        when 'W'
+          @position[0] -= 1 if position[0] > 0
+      end
+      puts 'Toy Robot has reached the edge of the grid' if start_position == @position
+    else
+      puts 'Your robot has not been placed on the grid.'
     end
   end
 
   def left
-    place = @compass.index(@direction)
-    @direction = @compass[place + 3]
+    if @placed
+      place = @compass.index(@direction)
+      @direction = @compass[place + 3]
+    else
+      puts 'Your robot has not been placed on the grid.'
+    end
   end
 
   def right
-    place = @compass.index(@direction)
-    @direction = @compass[place + 1]
+    if @placed
+      place = @compass.index(@direction)
+      @direction = @compass[place + 1]
+    else
+      puts 'Your robot has not been placed on the grid.'
+    end
   end
 end
 
