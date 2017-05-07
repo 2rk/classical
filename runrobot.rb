@@ -56,3 +56,6 @@ else
   end
 end
 
+# Verify place command structure
+# Add verification to place values
+# Add display grid method?
