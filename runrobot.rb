@@ -16,8 +16,7 @@ if gets.chomp.upcase == 'Y'
   file.readlines.each do |line|
     case
       when line.include?('PLACE')
-        letters = line.split('')
-        r2.place(letters[6], letters[8], letters[10])
+        r2.place_command(line)
       when line.include?('MOVE')
         r2.move
       when line.include?('REPORT')
@@ -42,8 +41,7 @@ else
         puts 'Thanks for playing!'
         flag = false
       when command.start_with?('PLACE')
-        letters = command.split('')
-        r2.place(letters[6], letters[8], letters[10])
+        r2.place_command(command)
       when command.start_with?('MOVE')
         r2.move
       when command.start_with?('REPORT')
@@ -52,9 +50,8 @@ else
         r2.left
       when command.start_with?('RIGHT')
         r2.right
+      else
+        puts "Sorry, that's not a invalid command."
     end
   end
 end
-
-# Verify place command structure
-# Add display grid method?

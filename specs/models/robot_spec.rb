@@ -3,10 +3,10 @@ require_relative '../../models/robot'
 
 describe Robot do
   describe '.new' do
-    it 'places a new robot  at 0,0,N' do
+    it 'places a new robot without a position' do
       r2 = Robot.new
-      expect(r2.position).to eq([0,0])
-      expect(r2.direction).to eq('N')
+      expect(r2.position).to be_nil
+      expect(r2.direction).to be_nil
     end
   end
   describe '#place' do
@@ -15,6 +15,18 @@ describe Robot do
       r2.place(3,3,'N')
       expect(r2.position).to eq([3,3])
       expect(r2.direction).to eq('N')
+    end
+    it 'will not place the robot with invalid position' do
+      r2 = Robot.new
+      r2.place(5,2,'E')
+      expect(r2.position).to be_nil
+      expect(r2.direction).to be_nil
+    end
+    it 'will not place robot with invalid direction' do
+      r2 = Robot.new
+      r2.place(3,3,'T')
+      expect(r2.position).to be_nil
+      expect(r2.direction).to be_nil
     end
   end
   describe '#report' do
@@ -41,6 +53,7 @@ describe Robot do
   describe '#left' do
     it 'turns robot once to the left' do
       r2 = Robot.new
+      r2.place(0,0,'N')
       r2.left
       expect(r2.direction).to eq('W')
     end
@@ -48,8 +61,9 @@ describe Robot do
   describe '#right' do
     it 'turns robot once to the right' do
       r2 = Robot.new
+      r2.place(0,0,'W')
       r2.right
-      expect(r2.direction).to eq('E')
+      expect(r2.direction).to eq('N')
     end
   end
 end

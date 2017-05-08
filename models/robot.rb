@@ -1,13 +1,19 @@
 class Robot
-  attr_accessor :position, :direction
+  attr_accessor :position, :direction, :placed
+
 
   def initialize
     @placed = false
     @compass = ['N', 'E', 'S', 'W', 'N', 'E','S']
   end
 
+  def place_command(command)
+    command.split('')
+    place(command[6], command[8], command[10])
+  end
+
   def place(x,y, dir)
-    if (0..4).include?(x) && (0..4).include?(y) && ['N','E','S','W'].include?(dir)
+    if (0..4).include?(x.to_i) && (0..4).include?(y.to_i) && ['N','E','S','W'].include?(dir)
       @position = [x.to_i,y.to_i]
       @direction = dir
       @placed = true
@@ -19,9 +25,9 @@ class Robot
   def report
     if @placed
       report = @position + [@direction]
-      puts report.join(',')
+      report.join(',')
     else
-      puts 'Your robot has not been placed on the grid.'
+      'Your robot has not been placed on the grid.'
     end
   end
 
@@ -35,7 +41,7 @@ class Robot
           @position[0] += 1 if position[0] < 4
         when 'S'
           @position[1] -= 1 if position[1] > 0
-        when 'W'
+        else
           @position[0] -= 1 if position[0] > 0
       end
       puts 'Toy Robot has reached the edge of the grid' if start_position == @position
